@@ -16,11 +16,11 @@ export const signInWithPassword = async ({
       password: password,
     });
 
-    if (!res.data.response) {
+    if (!res.data.token) {
       throw new Error("Access token not found in response");
     }
 
-    setSession(res.data.response);
+    setSession(res.data.token);
   } catch (error) {
     console.error("Error during sign in:", error);
     throw error;

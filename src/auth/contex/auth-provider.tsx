@@ -18,9 +18,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const res = await axiosInstance.get(endpoints.auth.me);
-
-        const user = res.data.response;
+        const res = await axiosInstance.get(endpoints.auth.me , {
+          headers: {
+            Authorization: `${accessToken}`,
+          }
+        });
+        const user = res.data;
         setState({ user: { ...user }, loading: false });
       } else {
         setState({ user: null, loading: false });
